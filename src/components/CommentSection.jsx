@@ -3,19 +3,24 @@ import { useDispatch } from 'react-redux'
 import Button from './Button'
 import { BiMessageSquareDetail } from 'react-icons/bi'
 import { commentPost} from '../actions/posts'
+import { useNavigate, useParams } from 'react-router-dom'
+import {getPost} from '../actions/posts'
 
-const CommentSection = ({post}) => {
+const CommentSection = ({post, comments, setComments}) => {
+    const { id } = useParams()
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const user = JSON.parse(localStorage.getItem('profile'))
     const commentsRef = useRef();
-    const [comments, setComments] = useState(post?.comments)
+
+
     const [comment, setComment] = useState('')
     const postComment = async()=>{
         const newComment = await dispatch(commentPost({name: user.result.name, comment: comment}, post._id))
         setComments(newComment)
         setComment('')
 
-        commentsRef.current.scrollIntoView({ behaviour: 'smooth'})
+        commentsRef.current.scrollIntoView({ behavior: 'smooth'})
     }
   return (
     <div className="mt-5">

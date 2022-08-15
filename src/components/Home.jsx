@@ -13,11 +13,11 @@ import {getPostsBySearch} from '../actions/posts'
 function useQuery(){
   return new URLSearchParams(useLocation().search)
 }
-const Home = ({ currentId, setCurrentId, user, setUser}) => {
+const Home = ({ currentId, setCurrentId,page, user, setUser}) => {
+  
   const dispatch = useDispatch()
-  const query = useQuery()
   const navigate = useNavigate()
-  const page = query.get('page') || 1;
+  const query = useQuery()
   const searchQuery = query.get('searchQuery')
   const [search, setSearch] = useState('')
   const [tags, setTags] = useState([])
